@@ -3,104 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OFA Car Support | 事業用軽バン・軽幌車格安リース</title>
+    <title>OFA Car Support | 事業用軽貨物車両 格安リース</title>
     <style>
         :root {
             --rainbow: linear-gradient(90deg, #ff0000, #ffcc00, #00ff00, #00ffff, #0000ff, #ff00ff);
-            --jts-blue: #00529a;
-            --light-bg: #f4f7f9;
-            --line-green: #06C755;
+            --ofa-blue: #00529a;
+            --sub-blue: #003366;
+            --light-bg: #f9f9f9;
+            --accent-yellow: #ffcc00;
         }
 
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0; color: #333; background-color: var(--light-bg); }
+        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; margin: 0; padding: 0; color: #333; background-color: var(--light-bg); line-height: 1.6; }
         
-        header { background: #fff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid; border-image: var(--rainbow) 1; position: sticky; top: 0; z-index: 100; }
-        .ofa-logo { font-size: 32px; font-weight: 900; font-style: italic; color: #333; }
-        .car-support-text { font-size: 20px; color: var(--jts-blue); font-weight: bold; }
+        /* ヘッダー */
+        header { background: #fff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid; border-image: var(--rainbow) 1; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo-group { display: flex; align-items: center; gap: 8px; }
+        .ofa-logo { font-size: 34px; font-weight: 900; font-style: italic; color: #333; letter-spacing: -1px; }
+        .car-support { font-size: 20px; color: var(--ofa-blue); font-weight: bold; }
+        .menu-icon { font-size: 28px; cursor: pointer; }
 
-        .hero { background: var(--jts-blue); color: white; padding: 35px 20px; text-align: left; }
-        .hero h1 { font-size: 26px; margin: 0 0 10px; }
-        .hero .highlight { color: #ffcc00; font-size: 32px; }
+        /* メインビジュアル */
+        .hero { background: var(--ofa-blue); color: white; padding: 40px 20px; position: relative; }
+        .hero h1 { font-size: 28px; margin: 0 0 15px; line-height: 1.4; }
+        .hero .yellow { color: var(--accent-yellow); font-size: 34px; }
+        .hero .check-list { list-style: none; padding: 0; margin: 20px 0; }
+        .hero .check-list li { margin-bottom: 8px; font-weight: bold; display: flex; align-items: center; }
+        .hero .check-list li::before { content: '✔'; margin-right: 10px; color: var(--accent-yellow); }
+        .hero .target-tags { display: flex; gap: 10px; }
+        .hero .tag { background: white; color: var(--ofa-blue); padding: 8px 25px; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 0 rgba(0,0,0,0.2); }
 
-        .section-title { border-left: 6px solid var(--jts-blue); margin: 30px 15px 15px; padding: 5px 15px; font-size: 20px; font-weight: bold; background: #e1e8ed; }
-        .card { border: 1px solid #ddd; margin: 0 15px 25px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+        /* セクションタイトル */
+        .section-title { border-bottom: 3px solid var(--ofa-blue); margin: 40px 15px 20px; padding-bottom: 10px; font-size: 24px; font-weight: bold; position: relative; }
+        .section-title::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 60px; border-bottom: 3px solid #ff0000; }
 
-        /* 料金・プラン */
-        .blue-head { background: var(--jts-blue); color: white; padding: 12px; font-weight: bold; text-align: center; }
-        .price-box { padding: 20px; text-align: center; border-bottom: 1px solid #eee; }
-        .price-num { font-size: 30px; font-weight: bold; color: var(--jts-blue); }
-        
-        /* 拠点・会社案内スタイル */
+        /* カード・ボックス */
+        .card { background: white; border: 1px solid #ddd; margin: 0 15px 30px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .blue-header { background: var(--ofa-blue); color: white; padding: 12px; text-align: center; font-weight: bold; font-size: 18px; }
+        .price-area { padding: 20px; text-align: center; }
+        .price-label { font-size: 16px; font-weight: bold; color: #666; margin-bottom: 10px; }
+        .price-value { font-size: 36px; font-weight: bold; color: var(--ofa-blue); }
+        .price-unit { font-size: 16px; color: #333; }
+
+        /* 車両ラインナップ */
+        .vehicle-img { width: 100%; height: auto; display: block; border-bottom: 1px solid #eee; }
+        .vehicle-desc { padding: 15px; font-size: 14px; background: #f0f4f8; border-bottom: 1px solid #ddd; }
+
+        /* 会社・拠点情報 */
         .info-table { width: 100%; border-collapse: collapse; }
-        .info-table th, .info-table td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; font-size: 14px; }
-        .info-table th { background: #f9f9f9; width: 30%; color: #666; }
-        .base-img { width: 100%; height: auto; display: block; }
+        .info-table th { background: #f4f4f4; width: 30%; padding: 15px; border-bottom: 1px solid #ddd; text-align: left; font-size: 14px; }
+        .info-table td { padding: 15px; border-bottom: 1px solid #ddd; font-size: 14px; }
+
+        /* メンテナンス・請求 */
+        .content-box { padding: 20px; font-size: 15px; line-height: 1.8; }
+        .red-bold { color: #d32f2f; font-weight: bold; }
+        .alert-box { border: 2px solid #d32f2f; padding: 15px; margin-top: 15px; border-radius: 5px; background: #fff5f5; }
 
         /* お問い合わせ */
-        .contact-area { background: #002a52; color: white; text-align: center; padding: 40px 20px; }
-        .tel-link { display: block; color: white; font-size: 32px; font-weight: bold; text-decoration: none; margin: 15px 0; border: 2px solid white; padding: 10px; border-radius: 10px; }
-        .line-btn { display: flex; align-items: center; justify-content: center; background: var(--line-green); color: white; padding: 15px; border-radius: 50px; font-weight: bold; text-decoration: none; margin: 10px auto; max-width: 300px; }
-
-        .red { color: #d32f2f; font-weight: bold; }
+        .contact-footer { background: var(--sub-blue); color: white; text-align: center; padding: 50px 20px; }
+        .tel-box { display: block; color: white; font-size: 32px; font-weight: bold; text-decoration: none; margin: 20px 0; border: 2px solid white; padding: 15px; border-radius: 10px; transition: 0.3s; }
+        .tel-box:hover { background: white; color: var(--sub-blue); }
+        .line-button { display: flex; align-items: center; justify-content: center; background: #06C755; color: white; padding: 18px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 20px; margin: 15px auto; max-width: 350px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-area"><span class="ofa-logo">OFA</span> <span class="car-support-text">カーサポート</span></div>
-    <div style="font-size: 24px;">📞</div>
+    <div class="logo-group">
+        <span class="ofa-logo">OFA</span>
+        <span class="car-support">カーサポート</span>
+    </div>
+    <div class="menu-icon">☰</div>
 </header>
 
 <section class="hero">
-    <h1>事業用軽車両<br><span class="highlight">格安リース！</span></h1>
-    <p>✓ いつでも借りて返せる！<br>✓ 自動車税・車検法定費用込み！</p>
+    <h1>事業用軽車両を<br><span class="yellow">格安でリースします！</span></h1>
+    <ul class="check-list">
+        <li>いつでも借りて返せる！</li>
+        <li>自動車税・車検法定費用込み！</li>
+    </ul>
+    <div class="target-tags">
+        <div class="tag">個人OK</div>
+        <div class="tag">法人OK</div>
+    </div>
 </section>
 
-<h2 class="section-title">登録・リース料金</h2>
+<h2 class="section-title">登録・オース登録</h2>
 <div class="card">
-    <div class="blue-head">初回登録・書類作成</div>
-    <div class="price-box">
-        <p>①初回登録：<span class="price-num">6,500円</span><span>（税別）</span></p>
-        <p>②使用者変更：<span class="price-num">11,000円</span><span>（税別）</span></p>
+    <div class="blue-header">①初回法人・個人登録（1回のみ）</div>
+    <div class="price-area">
+        <div class="price-value">6,500円<span class="price-unit">／月（税別）</span></div>
     </div>
-    <div class="blue-head">月額リース料（軽バン）</div>
-    <div class="price-box">
-        <p>自動車保険有り：<span class="price-num">53,000円</span><span>（税別）</span></p>
-        <p>車体のみ：<span class="price-num">35,000円</span><span>（税別）</span></p>
+    <div class="blue-header">②使用者変更 書類作成</div>
+    <div class="price-area">
+        <div class="price-value">11,000円<span class="price-unit">／回（税別）</span></div>
+        <p class="red-bold" style="margin-top:10px;">※②の場合最低リース期間30日</p>
     </div>
 </div>
 
-<h2 class="section-title">請求・特典</h2>
-<div class="card" style="padding: 15px; font-size: 14px; line-height: 1.6;">
-    <p>● <b>請求サイクル</b>：通常は前月27日払い</p>
-    <p class="red">★軽貨物配送案件同時契約の場合、委託報酬に合わせての請求（相殺）が可能です！</p>
-    <p>● <b>無料メンテナンス</b>：車検・定期点検・消耗品交換（過失がない場合）は当社負担で安心！</p>
+<h2 class="section-title">月額リース料金・ラインナップ</h2>
+
+<div class="blue-header" style="margin: 0 15px;">軽バン</div>
+<div class="card">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwM-6OonYFmI5R_M6U0mQyq_XyR-7_0_WfUv8H7yV2n-fK8f9zYk8f/s600/car_keiban_white.png" alt="軽バン" class="vehicle-img">
+    <div class="price-area">
+        <p class="price-label">1. 自動車保険有り</p>
+        <div class="price-value">53,000円<span class="price-unit">（税別）</span></div>
+    </div>
+    <div class="price-area" style="border-top: 1px solid #eee;">
+        <p class="price-label">2. 車体のみ（保険個人）</p>
+        <div class="price-value">35,000円<span class="price-unit">（税別）</span></div>
+    </div>
 </div>
 
-<h2 class="section-title">拠点案内</h2>
+<div class="blue-header" style="margin: 0 15px;">軽幌車両</div>
 <div class="card">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjD9u2f6p7T9oR6n8v0f0v0f0v0f0v0f0v0f0/s600/base_image.jpg" alt="鹿児島拠点 外観" class="base-img">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6_Bf1Fv6X_6y3m-pS6mS9_7R_Uv-R-6fP2R-8/s600/car_truck_horo.png" alt="軽幌車両" class="vehicle-img">
+    <div class="price-area">
+        <p class="price-label">1. 自動車保険有り</p>
+        <div class="price-value">49,500円<span class="price-unit">（税別）</span></div>
+    </div>
+    <div class="price-area" style="border-top: 1px solid #eee;">
+        <p class="price-label">2. 車体のみ（保険個人）</p>
+        <div class="price-value">39,500円<span class="price-unit">（税別）</span></div>
+    </div>
+</div>
+
+<div class="blue-header" style="margin: 0 15px;">冷凍車・その他特装車</div>
+<div class="card">
+    <div class="vehicle-desc">
+        冷凍車、保冷車、その他仕様の車両についてもご案内可能です。在庫状況が変動いたしますので、詳細はお問い合わせください。
+    </div>
+    <div class="price-area">
+        <div class="price-value" style="font-size: 24px;">別途お見積もり</div>
+    </div>
+</div>
+
+<h2 class="section-title">無料メンテナンス</h2>
+<div class="card">
+    <div class="content-box">
+        <p><b>対象：車検法定定期点検 / タイヤ交換 / ヘッドライト / ブレーキランプ / ウインカー / その他経年劣化</b></p>
+        <p>ドライバーに過失が認められない不具合、修理費用は当社で負担いたします。</p>
+        <div class="alert-box">
+            <span class="red-bold">【重要】</span><br>
+            走行中のエンジンオイル漏れやオーバーヒートにつきましては、赤色の警告灯が点灯した時にはすでに手遅れの状態です。この場合、日頃の点検・確認不足が原因として借主さまの過失扱いになります。
+        </div>
+    </div>
+</div>
+
+<h2 class="section-title">請求サイクル</h2>
+<div class="card">
+    <div class="content-box">
+        <p>通常、月額料金は<span class="red-bold">前月27日</span>までのお支払となります。</p>
+        <div class="alert-box" style="border-color: var(--ofa-blue); background: #eef6ff;">
+            <span class="red-bold" style="color: var(--ofa-blue);">★同時契約特典</span><br>
+            軽貨物配送案件を同時契約いただいている場合、<span class="red-bold">委託報酬に合わせての請求（相殺）</span>が可能です。
+        </div>
+        <p style="text-align: right; font-size: 12px; margin-top: 10px;">令和7年1月8日改定</p>
+    </div>
+</div>
+
+<h2 class="section-title">拠点・会社案内</h2>
+<div class="card">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7_B8R8H-z9L-D-uO1R1R1R1R1R1R1R1R1R1R/s600/kagoshima_base.jpg" alt="鹿児島拠点" class="vehicle-img">
     <table class="info-table">
-        <tr>
-            <th>拠点名</th>
-            <td>OFAグループ 鹿児島拠点（加治木）</td>
-        </tr>
-        <tr>
-            <th>住所</th>
-            <td>〒899-5241<br>鹿児島県姶良市加治木町木田2543-1</td>
-        </tr>
-        <tr>
-            <th>備考</th>
-            <td>加治木インターチェンジ近く。配送案件のご相談も承ります。</td>
-        </tr>
+        <tr><th>拠点名</th><td>OFAグループ 鹿児島拠点</td></tr>
+        <tr><th>住所</th><td>〒899-5241 鹿児島県姶良市加治木町木田2543-1</td></tr>
+        <tr><th>電話番号</th><td>090-1164-6645</td></tr>
+        <tr><th>営業時間</th><td>9:00〜18:00（土日祝除く）</td></tr>
     </table>
 </div>
 
-<footer class="contact-area">
-    <h3>お問い合わせ・お見積もり</h3>
-    <a href="tel:09011646645" class="tel-link">090-1164-6645</a>
-    <a href="https://lin.ee/ZNxdhmi" class="line-btn">LINEでお問い合わせ</a>
-    <p style="font-size: 12px; margin-top: 20px; opacity: 0.7;">© OFA Car Support | 令和7年1月改定</p>
+<footer class="contact-footer">
+    <h3>お見積もり・お問い合わせ</h3>
+    <p>お電話または公式LINEから承っております。</p>
+    <a href="tel:09011646645" class="tel-box">📞 090-1164-6645</a>
+    <a href="https://lin.ee/ZNxdhmi" class="line-button">LINEでお問い合わせ</a>
+    <p style="font-size: 12px; margin-top: 30px; opacity: 0.7;">© OFA Car Support All Rights Reserved.</p>
 </footer>
 
 </body>
